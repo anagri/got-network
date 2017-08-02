@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="goTCharacter" type="com.bootcamp.b17.GoTCharacter"/>
+        <variable name="goTCharacterViewModel" type="com.bootcamp.b17.GoTCharacterViewModel"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -39,8 +39,9 @@
             android:layout_toEndOf="@+id/img_house"
             android:layout_toRightOf="@+id/img_house"
             android:lines="1"
+            android:text="@{goTCharacterViewModel.goTCharacter.name}"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@{goTCharacter.titleColor}"
+            android:textColor="@{goTCharacterViewModel.titleColor}"
             tools:text="Daenaerys Targaeryn"/>
 
         <TextView
@@ -50,6 +51,7 @@
             android:layout_below="@+id/txt_name"
             android:layout_toEndOf="@id/img_house"
             android:layout_toRightOf="@id/img_house"
+            android:text="@{goTCharacterViewModel.goTCharacter.description}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             tools:text="Mother of Dragons"/>
     </RelativeLayout>

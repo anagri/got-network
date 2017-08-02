@@ -90,6 +90,10 @@ public class GoTCharacter implements Parcelable {
         return alive ? Color.GREEN : Color.RED;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public int describeContents() {
         return 0;
