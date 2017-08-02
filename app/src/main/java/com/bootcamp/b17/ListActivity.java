@@ -15,48 +15,6 @@ import android.widget.TextView;
 
 public class ListActivity extends AppCompatActivity {
 
-    public static class GoTCharacter {
-        public final String name;
-        public final int resId;
-
-        public GoTCharacter(String name, int resId) {
-            this.name = name;
-            this.resId = resId;
-        }
-    }
-
-    public static final GoTCharacter[] GOT_CHARACTERS = new GoTCharacter[]
-            {
-                    new GoTCharacter("Arya Stark", R.drawable.arya),
-                    new GoTCharacter("Bran Stark", R.drawable.bran),
-                    new GoTCharacter("Brienne Tarth", R.drawable.brienne),
-                    new GoTCharacter("Catelyn Stark", R.drawable.catelyn),
-                    new GoTCharacter("Cercei Lannister", R.drawable.cercei),
-                    new GoTCharacter("Daenerys Targaryen", R.drawable.daenerys),
-                    new GoTCharacter("Davos Seaworth", R.drawable.davos),
-                    new GoTCharacter("Eddard Stark", R.drawable.eddard),
-                    new GoTCharacter("Hodor", R.drawable.hodor),
-                    new GoTCharacter("Jaime Lannister", R.drawable.jaime),
-                    new GoTCharacter("Jaqen Hagar", R.drawable.jaqen),
-                    new GoTCharacter("Joffrey Baratheon", R.drawable.joffrey),
-                    new GoTCharacter("Jon Snow", R.drawable.jon),
-                    new GoTCharacter("Khal Drogo", R.drawable.khal),
-                    new GoTCharacter("Melisandre", R.drawable.melisandre),
-                    new GoTCharacter("Petyr Baelish", R.drawable.petyr),
-                    new GoTCharacter("Podrick Payne", R.drawable.podrick),
-                    new GoTCharacter("Pycelle", R.drawable.pycelle),
-                    new GoTCharacter("Ramsay Bolton", R.drawable.ramsay),
-                    new GoTCharacter("Renly Baratheon", R.drawable.renly),
-                    new GoTCharacter("Robb Stark", R.drawable.robb),
-                    new GoTCharacter("Robert Baratheon", R.drawable.robert),
-                    new GoTCharacter("Roose Bolton", R.drawable.roose),
-                    new GoTCharacter("Sansa Stark", R.drawable.sansa),
-                    new GoTCharacter("Stannis Baratheon", R.drawable.stannis),
-                    new GoTCharacter("Tyrion Lannister", R.drawable.tyrion),
-                    new GoTCharacter("Tywin Lannister", R.drawable.tywin),
-                    new GoTCharacter("Varys", R.drawable.varys)
-            };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +25,7 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ListActivity.this, DetailActivity.class);
-                intent.putExtra(DetailActivity.NAME, GOT_CHARACTERS[position].name);
+                intent.putExtra(DetailActivity.CHARACTER, GoTCharacter.GOT_CHARACTERS[position]);
                 startActivity(intent);
             }
         });
@@ -82,12 +40,12 @@ public class ListActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return GOT_CHARACTERS.length;
+            return GoTCharacter.GOT_CHARACTERS.length;
         }
 
         @Override
         public GoTCharacter getItem(int i) {
-            return GOT_CHARACTERS[i];
+            return GoTCharacter.GOT_CHARACTERS[i];
         }
 
         @Override
