@@ -1,11 +1,13 @@
 package com.bootcamp.b17;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -59,7 +61,16 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        ((ListView) findViewById(R.id.list_got)).setAdapter(new GoTAdapter(this));
+        ListView listView = (ListView) findViewById(R.id.list_got);
+        listView.setAdapter(new GoTAdapter(this));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ListActivity.this, DetailActivity.class);
+                intent.putExtra(DetailActivity.NAME, GOT_CHARACTERS[position].name);
+                startActivity(intent);
+            }
+        });
     }
 
     private static class GoTAdapter extends BaseAdapter {
