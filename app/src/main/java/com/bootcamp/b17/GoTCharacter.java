@@ -1,5 +1,6 @@
 package com.bootcamp.b17;
 
+import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -83,6 +84,10 @@ public class GoTCharacter implements Parcelable {
         this.houseResId = houseResId;
         this.house = house;
         this.description = description;
+    }
+
+    public int getTitleColor() {
+        return alive ? Color.GREEN : Color.RED;
     }
 
     @Override
