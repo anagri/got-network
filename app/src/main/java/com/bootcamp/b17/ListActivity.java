@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 public class ListActivity extends AppCompatActivity {
 
     @Override
@@ -60,7 +62,13 @@ public class ListActivity extends AppCompatActivity {
                 convertView = layoutInflater.inflate(R.layout.item_got, parent, false);
             }
             GoTCharacter goTCharacter = getItem(position);
-            ((ImageView) convertView.findViewById(R.id.img_got)).setImageResource(goTCharacter.resId);
+            ImageView thumbnail = (ImageView) convertView.findViewById(R.id.img_thumbnail);
+            Glide.with(context)
+                    .load(goTCharacter.thumbUrl)
+                    .placeholder(R.drawable.profile_placeholder)
+                    .error(R.drawable.profile_placeholder_error)
+                    .fitCenter()
+                    .into(thumbnail);
             ((TextView) convertView.findViewById(R.id.txt_got)).setText(goTCharacter.name);
             return convertView;
         }

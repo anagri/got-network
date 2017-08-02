@@ -6,9 +6,9 @@
               android:orientation="horizontal"
               android:padding="8dp">
     <ImageView
-        android:id="@+id/img_got"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/img_thumbnail"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         tools:src="@drawable/arya"/>
     <TextView
         android:id="@+id/txt_got"
