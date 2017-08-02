@@ -1,5 +1,6 @@
 package com.bootcamp.b17;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -13,7 +14,9 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         GoTCharacter goTCharacter = getIntent().getParcelableExtra(CHARACTER);
-        ((TextView) findViewById(R.id.txt_name)).setText(goTCharacter.name);
+        TextView name = (TextView) findViewById(R.id.txt_name);
+        name.setText(goTCharacter.name);
+        name.setTextColor(goTCharacter.alive ? Color.GREEN : Color.RED);
         ((TextView) findViewById(R.id.txt_desc)).setText(goTCharacter.description);
         ((ImageView) findViewById(R.id.img_got)).setImageResource(goTCharacter.fullResId);
         ((ImageView) findViewById(R.id.img_house)).setImageResource(goTCharacter.houseResId);
