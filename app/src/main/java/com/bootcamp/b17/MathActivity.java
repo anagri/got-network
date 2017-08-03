@@ -1,6 +1,5 @@
 package com.bootcamp.b17;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +10,11 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.Locale;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MathActivity extends AppCompatActivity {
 
@@ -24,35 +28,34 @@ public class MathActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String input = ((EditText) findViewById(R.id.input_number)).getText().toString();
                 if (input.matches("\\d+")) {
-                    int times = Integer.parseInt(input);
+                    final int times = Integer.parseInt(input);
 
                     ((TextView) findViewById(R.id.txt_result)).setText(String.format(Locale.ENGLISH, "Starting computation %d times", times));
                     calculateButton.setEnabled(false);
-                    new AsyncTask<Integer, Integer, Integer>() {
-                        @Override
-                        protected Integer doInBackground(Integer... params) {
-                            int times = params[0];
-                            for (int i = 0; i < times; i++) {
-                                int vain = 0;
-                                for (int j = 0; j < 100000; j++) {
-                                    vain += times;
+                    Observable.range(0, times)
+                            .subscribeOn(AndroidSchedulers.mainThread())
+                            .observeOn(Schedulers.computation())
+                            .subscribe(new Subscriber<Integer>() {
+                                @Override
+                                public void onCompleted() {
+                                    calculateButton.setEnabled(true);
+                                    ((TextView) findViewById(R.id.txt_result)).setText(String.format(Locale.ENGLISH, "Did computation %d times", times));
                                 }
-                                publishProgress(i);
-                            }
-                            return times;
-                        }
 
-                        @Override
-                        protected void onProgressUpdate(Integer... values) {
-                            ((TextView) findViewById(R.id.txt_result)).setText(String.format(Locale.ENGLISH, "Did computation %d times", values[0]));
-                        }
+                                @Override
+                                public void onError(Throwable e) {
+                                    calculateButton.setEnabled(true);
+                                    ((TextView) findViewById(R.id.txt_result)).setText(String.format(Locale.ENGLISH, "Error in execution - %s", e.getMessage()));
+                                }
 
-                        @Override
-                        protected void onPostExecute(Integer times) {
-                            calculateButton.setEnabled(true);
-                            ((TextView) findViewById(R.id.txt_result)).setText(String.format(Locale.ENGLISH, "Did computation %d times", times));
-                        }
-                    }.execute(times);
+                                @Override
+                                public void onNext(Integer integer) {
+                                    int vain = 0;
+                                    for (int j = 0; j < 100000; j++) {
+                                        vain += j;
+                                    }
+                                }
+                            });
                 } else {
                     new AlertDialog.Builder(MathActivity.this)
                             .setMessage("Input is not a number")
