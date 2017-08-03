@@ -15,15 +15,15 @@
         <activity android:name=".BootcampSplashActivity"/>
         <activity android:name=".RelativeLayoutActivity"/>
         <activity android:name=".ListActivity">
-        </activity>
-        <activity android:name=".DetailActivity" android:parentActivityName=".ListActivity">
-        </activity>
-        <activity android:name=".MathActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".DetailActivity" android:parentActivityName=".ListActivity">
+        </activity>
+        <activity android:name=".MathActivity">
         </activity>
     </application>
 
