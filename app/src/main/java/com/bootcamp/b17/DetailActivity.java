@@ -30,6 +30,24 @@ public class DetailActivity extends AppCompatActivity {
         final ActivityDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
         binding.setGoTCharacterViewModel(new GoTCharacterViewModel(goTCharacter));
 
+//        makeAsyncNetworkCall(binding);
+    }
+
+    @BindingAdapter("glideUrl")
+    public static void bindGlideUrl(ImageView imageView, String url) {
+        Glide.with(imageView.getContext())
+                .load(url)
+                .placeholder(R.drawable.profile_placeholder_full)
+                .error(R.drawable.profile_placeholder_error_full)
+                .into(imageView);
+    }
+
+    @BindingAdapter({"android:src"})
+    public static void setImageViewResource(ImageView imageView, int resource) {
+        imageView.setImageResource(resource);
+    }
+
+    private void makeAsyncNetworkCall(final ActivityDetailBinding binding) {
         new AsyncTask<Object, Object, GoTCharacterViewModel>() {
             @Override
             protected GoTCharacterViewModel doInBackground(Object... params) {
@@ -49,18 +67,11 @@ public class DetailActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(GoTCharacterViewModel goTCharacterViewModel) {
+                if (goTCharacterViewModel == null || DetailActivity.this.isFinishing()) return;
+
                 binding.setGoTCharacterViewModel(goTCharacterViewModel);
                 binding.executePendingBindings();
             }
         }.execute();
-    }
-
-    @BindingAdapter("glideUrl")
-    public static void bindGlideUrl(ImageView imageView, String url) {
-        Glide.with(imageView.getContext())
-                .load(url)
-                .placeholder(R.drawable.profile_placeholder_full)
-                .error(R.drawable.profile_placeholder_error_full)
-                .into(imageView);
     }
 }

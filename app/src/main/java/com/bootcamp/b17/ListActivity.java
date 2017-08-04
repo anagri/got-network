@@ -15,8 +15,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-public class ListActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+public class ListActivity extends AppCompatActivity {
     private GoTAdapter adapter;
 
     @Override
@@ -30,7 +33,7 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ListActivity.this, DetailActivity.class);
-                intent.putExtra(DetailActivity.CHARACTER, Constants.GOT_CHARACTERS[position]);
+                intent.putExtra(DetailActivity.CHARACTER, adapter.getItem(position));
                 startActivity(intent);
             }
         });
@@ -38,24 +41,27 @@ public class ListActivity extends AppCompatActivity {
 
     private static class GoTAdapter extends BaseAdapter {
         private final Context context;
+        private final List<GoTCharacter> gotCharacters;
 
         public GoTAdapter(Context context) {
             this.context = context;
+            gotCharacters = new ArrayList<>();
+            gotCharacters.addAll(Arrays.asList(Constants.GOT_CHARACTERS));
         }
 
         @Override
         public int getCount() {
-            return Constants.GOT_CHARACTERS.length;
+            return gotCharacters.size();
         }
 
         @Override
         public GoTCharacter getItem(int i) {
-            return Constants.GOT_CHARACTERS[i];
+            return gotCharacters.get(i);
         }
 
         @Override
         public long getItemId(int i) {
-            return i;
+            return getItem(i).id;
         }
 
         @Override
