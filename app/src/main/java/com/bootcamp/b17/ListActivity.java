@@ -2,10 +2,8 @@ package com.bootcamp.b17;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.io.IOException;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -41,7 +30,7 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ListActivity.this, DetailActivity.class);
-                intent.putExtra(DetailActivity.CHARACTER, GoTCharacter.GOT_CHARACTERS[position]);
+                intent.putExtra(DetailActivity.CHARACTER, Constants.GOT_CHARACTERS[position]);
                 startActivity(intent);
             }
         });
@@ -56,12 +45,12 @@ public class ListActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return GoTCharacter.GOT_CHARACTERS.length;
+            return Constants.GOT_CHARACTERS.length;
         }
 
         @Override
         public GoTCharacter getItem(int i) {
-            return GoTCharacter.GOT_CHARACTERS[i];
+            return Constants.GOT_CHARACTERS[i];
         }
 
         @Override
